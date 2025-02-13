@@ -140,4 +140,20 @@ public class Model {
         return authorsDAO.findAll();
     }
 
+    /**
+     * Delete author from DB by ID
+     * @param id the ID author
+     */
+    public void deleteAuthor(int id){
+        authorsDAO.delete(id);
+    }
+
+    /**
+     * Update existing author in the database
+     */
+
+    public void updateAuthor(Author author){
+        authorsDAO.update(author);
+    }
+
 }

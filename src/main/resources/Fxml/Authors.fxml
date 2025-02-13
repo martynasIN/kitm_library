@@ -27,8 +27,9 @@
             </ContextMenu>
          </contextMenu>
       </TableView>
-      <TextField layoutX="29.0" layoutY="180.0" promptText="Vardas" />
-      <TextField layoutX="207.0" layoutY="180.0" promptText="Pavardė" />
-      <TextField layoutX="386.0" layoutY="180.0" promptText="Miestas" />
+      <TextField fx:id="filterFirstName" layoutX="29.0" layoutY="180.0" promptText="Vardas" />
+      <TextField fx:id="filterLastname" layoutX="207.0" layoutY="180.0" promptText="Pavardė" />
+      <TextField fx:id="filterCity" layoutX="386.0" layoutY="180.0" promptText="Miestas" />
+      <Button fx:id="filterButton" layoutX="555.0" layoutY="180.0" mnemonicParsing="false" text="Filtruoti"/>
    </children>
 </AnchorPane>

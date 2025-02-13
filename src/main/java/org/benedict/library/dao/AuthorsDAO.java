@@ -47,12 +47,48 @@ public class AuthorsDAO implements GenericDAO{
 
     @Override
     public void update(Object entity) {
+        if(!(entity instanceof Author)){
+            throw new IllegalArgumentException("Excepted Autohot object");
+        }
 
+        Author author = (Author) entity;
+
+        String sql = "UPDATE authors SET FirstName = ?, LastName = ?, Email = ?, City = ? WHERE id = ?";
+        try(PreparedStatement stmt = this.conn.prepareStatement(sql)){
+            stmt.setString(1, author.getFirstName());
+            stmt.setString(2, author.getLastName());
+            stmt.setString(3, author.getEmail());
+            stmt.setString(4, author.getCity());
+            stmt.setInt(5, author.getId());
+
+            int rowsUpdated = stmt.executeUpdate();
+
+            if(rowsUpdated > 0){
+                logger.info("Author updated: " + author);
+            }else{
+                logger.warning("No author found with id: " + author.getId());
+            }
+        }catch (SQLException e){
+            logger.severe("Error updating author: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public void delete(Object id) {
-
+    public void delete(int id) {
+        String sql = "DELETE FROM authors WHERE id = ?";
+        try(PreparedStatement stmt = this.conn.prepareStatement(sql)){
+            stmt.setInt(1, id);
+            int rowsAffected = stmt.executeUpdate();
+            if(rowsAffected > 0){
+                logger.info("Author with ID " + id + " wes deleted successfully");
+            }else{
+                logger.warning("No author found with ID " + id);
+            }
+        }catch(SQLException e){
+            logger.severe("Error deleting author with  ID: " + id + ": " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     @Override
